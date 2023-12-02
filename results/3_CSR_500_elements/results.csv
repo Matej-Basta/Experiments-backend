@@ -1,0 +1,10 @@
+Metric,Mean,Standard Deviation
+cumulative-layout-shift,0.0,0.0
+first-contentful-paint,766.38352,17.248728796656458
+interactive,5207.240105000001,257.9121740634157
+largest-contentful-paint,1739.025105,28.1675899071656
+resource-size,142015.0,0.0
+server-response-time,29.308310000000002,9.103438015992095
+speed-index,1897.0794442254876,160.23920381225847
+total-blocking-time,3438.58516,253.69102206642128
+transfer-size,142349.0,0.0

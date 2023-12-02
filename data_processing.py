@@ -7,7 +7,7 @@ metrics = ["first-contentful-paint", "largest-contentful-paint", "speed-index", 
 
 
 # open the CSV file in write mode and write the header
-with open('extracted_data_test.csv', mode='w', newline='') as csvfile:
+with open('extracted_data.csv', mode='w', newline='') as csvfile:
     fieldnames = ['Metric', 'Value']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
@@ -22,7 +22,7 @@ def data_processing(metric):
                 items_metric_js_bundle = metric_js_bundle["details"]["items"]
                 url_found = False
                 for item in items_metric_js_bundle:
-                    if "bundle.js" in item.get("url"):
+                    if ".js" in item.get("url"):
                         print('JS bundle is found')
                         transfer_size = item.get("transferSize")
                         resource_size = item.get("resourceSize")
@@ -31,7 +31,7 @@ def data_processing(metric):
                         if transfer_size is not None and resource_size is not None:
 
                             # write to the CSV file
-                            with open('extracted_data_test.csv', mode='a', newline='') as csvfile:
+                            with open('extracted_data.csv', mode='a', newline='') as csvfile:
                                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                                 writer.writerow({'Metric': 'transfer-size', 'Value': transfer_size})
                                 writer.writerow({'Metric': 'resource-size', 'Value': resource_size})
@@ -52,7 +52,7 @@ def data_processing(metric):
             if numeric_value is not None:
 
                 # write to the CSV file
-                with open('extracted_data_test.csv', mode='a', newline='') as csvfile:
+                with open('extracted_data.csv', mode='a', newline='') as csvfile:
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                     writer.writerow({'Metric': metric, 'Value': numeric_value})
 
@@ -65,9 +65,9 @@ def data_processing(metric):
 
 if __name__ == "__main__":
     # specify the path
-    for filename in os.listdir(r"D:\ITU\ResearchProject\React\my-app\5runs"):
+    for filename in os.listdir(r"c:\web\itu\research\experiments\backend\results\3_SSR_5000_elements"):
         if filename.endswith(".json"):
-            with open(os.path.join(r"D:\ITU\ResearchProject\React\my-app\5runs", filename), "r") as read_results:
+            with open(os.path.join(r"c:\web\itu\research\experiments\backend\results\3_SSR_5000_elements", filename), "r") as read_results:
                 data = json.load(read_results)
 
             for metric in metrics:
