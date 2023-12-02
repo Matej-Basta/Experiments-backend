@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/register": "^7.22.15",
+    "express": "^4.18.2",
+    "ignore-styles": "^5.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
