@@ -1,7 +1,6 @@
 import pandas as pd
 import statistics
 import csv
-import os
 
 def calculate_mean_stdev():
     with open('results.csv', mode='w', newline='') as csvfile:

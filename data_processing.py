@@ -1,23 +1,13 @@
 import json
 import os
 import csv
-import statistics
-
-# with open('test.json', 'r') as read_file:
-#     data = json.load(read_file)
 
 metrics = ["first-contentful-paint", "largest-contentful-paint", "speed-index", "total-blocking-time", 
            "cumulative-layout-shift", "interactive", "network-requests", "server-response-time"]
 
-actual_metrics = ["first-contentful-paint", "largest-contentful-paint", "speed-index", "total-blocking-time", 
-           "cumulative-layout-shift", "interactive", "transfer-size", "resource-size", "server-response-time"]
 
-# additional_metrics = ["transfer-size", "resource-size"]
-metric_results = {metric: 0 for metric in actual_metrics}
-counts_accumulator = {metric: 0 for metric in actual_metrics}
-
-# Open the CSV file in write mode and write the header
-with open('extracted_data.csv', mode='w', newline='') as csvfile:
+# open the CSV file in write mode and write the header
+with open('extracted_data_test.csv', mode='w', newline='') as csvfile:
     fieldnames = ['Metric', 'Value']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
@@ -39,13 +29,9 @@ def data_processing(metric):
                         url_found = True
 
                         if transfer_size is not None and resource_size is not None:
-                            metric_results["transfer-size"] += transfer_size
-                            metric_results["resource-size"] += resource_size
-                            counts_accumulator["transfer-size"] += 1
-                            counts_accumulator["resource-size"] += 1
 
-                            # Write to the CSV file
-                            with open('extracted_data.csv', mode='a', newline='') as csvfile:
+                            # write to the CSV file
+                            with open('extracted_data_test.csv', mode='a', newline='') as csvfile:
                                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                                 writer.writerow({'Metric': 'transfer-size', 'Value': transfer_size})
                                 writer.writerow({'Metric': 'resource-size', 'Value': resource_size})
@@ -64,11 +50,9 @@ def data_processing(metric):
             metric_data = data["audits"][metric]
             numeric_value = metric_data.get('numericValue')
             if numeric_value is not None:
-                metric_results[metric] += numeric_value
-                counts_accumulator[metric] += 1
 
-                # Write to the CSV file
-                with open('extracted_data.csv', mode='a', newline='') as csvfile:
+                # write to the CSV file
+                with open('extracted_data_test.csv', mode='a', newline='') as csvfile:
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                     writer.writerow({'Metric': metric, 'Value': numeric_value})
 
@@ -79,8 +63,8 @@ def data_processing(metric):
         print(f'{metric} not found inside audits data structure')
 
 
-
 if __name__ == "__main__":
+    # specify the path
     for filename in os.listdir(r"D:\ITU\ResearchProject\React\my-app\5runs"):
         if filename.endswith(".json"):
             with open(os.path.join(r"D:\ITU\ResearchProject\React\my-app\5runs", filename), "r") as read_results:

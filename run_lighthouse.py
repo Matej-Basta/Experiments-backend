@@ -13,10 +13,9 @@ def run_lighthouse(index, target_url, output_directory):
 
 def run_concurrently(num_runs, target_url, output_directory):
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        # Use list comprehension to create a list of futures
         futures = [executor.submit(run_lighthouse, i, target_url, output_directory) for i in range(1, num_runs + 1)]
 
-        # Wait for all futures to complete
+        # wait for all futures to complete
         concurrent.futures.wait(futures)
 
     print("Lighthouse test(s) completed.")
